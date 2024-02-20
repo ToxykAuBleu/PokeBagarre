@@ -46,6 +46,14 @@ jobs:
     #
     # - name: Build with Gradle 8.5
     #   run: gradle build
+    - name: Test Reporter
+      uses: dorny/test-reporter@v1.8.0
+      if: success() || failure()
+      with:
+        artifact: test-results
+        name: JEST Tests
+        path: '*.xml'
+        reporter: jest-junit
 
   dependency-submission:
 
