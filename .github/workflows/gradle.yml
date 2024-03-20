@@ -80,4 +80,4 @@ jobs:
         artifact: test-results
         name: JEST Tests
         path: '*.xml'
-        reporter: junit
+        reporter: jest-junit
