@@ -46,6 +46,13 @@ jobs:
     #
     # - name: Build with Gradle 8.5
     #   run: gradle build
+    
+    - name: Upload results
+      uses: actions/upload-artifact@v3  # upload test results
+      if: success() || failure()        # run this step even if previous step failed
+      with:
+        name: test-results
+        path: jest-junit.xml
 
   dependency-submission:
 
@@ -66,11 +73,6 @@ jobs:
     - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
 
-    - uses: actions/upload-artifact@v3  # upload test results
-      if: success() || failure()        # run this step even if previous step failed
-      with:
-        name: test-results
-        path: jest-junit.xml
         
     - name: Test Reporter
       uses: dorny/test-reporter@v1.8.0
